@@ -13,8 +13,8 @@
 ### Directory description
 
 `jenkins_server`  - jenkins server version 1.609.1
-`jenkins_swarmcl` - jenkins swarm slave
-`tomcat_server`   - tomcat server for running boxfuse-sample-java-war-hello application
-`jenkins_job`     - container for updating jenkins job using jenkins-job-builder
-`jenkins_volume`  - jenkins data volume container with jenkins_home
-`jenkins_plugins` - container with all required jenkins plugins
+<br>`jenkins_swarmcl` - jenkins swarm slave
+<br>`tomcat_server`   - tomcat server for running boxfuse-sample-java-war-hello application
+<br>`jenkins_job`     - container for updating jenkins job using jenkins-job-builder
+<br>`jenkins_volume`  - jenkins data volume container with jenkins_home
+<br>`jenkins_plugins` - container with all required jenkins plugins
