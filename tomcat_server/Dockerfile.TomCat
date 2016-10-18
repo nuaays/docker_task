@@ -1,0 +1,30 @@
+FROM centos:6.8
+MAINTAINER Yauhen Mihura (yauhen_mihura@epam.com)
+
+# Prepare environment 
+ENV JAVA_HOME /opt/java
+ENV CATALINA_HOME /opt/tomcat
+ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/bin:$CATALINA_HOME/scripts
+
+# Install Oracle Java7
+RUN yum install wget tar -y && \
+    wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" \
+    http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.tar.gz && \
+    tar -xvf jdk-7u71-linux-x64.tar.gz && \
+    rm jdk*.tar.gz && \
+    mv jdk* /opt/java && \
+    
+# Install Tomcat7
+    wget http://apache-mirror.rbc.ru/pub/apache/tomcat/tomcat-7/v7.0.72/bin/apache-tomcat-7.0.72.tar.gz && \
+    tar -xzvf apache-tomcat-7.0.72.tar.gz && \
+    rm apache-tomcat*.tar.gz && \
+    mv apache-tomcat* /opt/tomcat && \
+    chmod +x /opt/tomcat/bin/*sh && \
+    yum clean all
+
+RUN useradd -d "/home/jenkins-slave" -u 1000 -m -s /bin/bash jenkins-slave
+RUN chown -R jenkins-slave:jenkins-slave /opt/tomcat/webapps
+
+WORKDIR /opt/tomcat
+VOLUME [ "/opt/tomcat/webapps" ]
+ENTRYPOINT ["catalina.sh", "run"]

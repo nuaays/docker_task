@@ -1,0 +1,12 @@
+FROM centos:6.8
+MAINTAINER Yauhen Mihura (yauhen_mihura@epam.com)
+
+RUN useradd -d "/var/jenkins_home" -u 1000 -m -s /bin/bash jenkins
+RUN mkdir -p /var/jenkins_home
+COPY hudson.tasks.Maven.xml /var/jenkins_home/hudson.tasks.Maven.xml
+RUN chown -R jenkins:jenkins /var/jenkins_home
+
+VOLUME [ "/var/jenkins_home"  ]
+USER jenkins
+
+CMD [ "echo", "Data Jenkins_HOME container for Jenkins" ]

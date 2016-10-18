@@ -1,0 +1,13 @@
+FROM ubuntu:14.04
+MAINTAINER Yauhen Mihura (yauhen_mihura@epam.com)
+
+RUN apt-get update -y && \
+    apt-get install python-pip curl -y
+RUN pip install PyYAML python-jenkins
+RUN pip install jenkins-job-builder
+COPY jenkins_jobs.ini /tmp/jenkins_jobs.ini
+COPY build-jaj-ops-sample-app.yaml /tmp/build-jaj-ops-sample-app.yaml
+ADD script.sh /script.sh
+RUN chmod 0755 /script.sh
+
+ENTRYPOINT ["bash", "script.sh"]
